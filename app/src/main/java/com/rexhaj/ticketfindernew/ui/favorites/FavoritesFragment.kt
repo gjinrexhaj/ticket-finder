@@ -35,6 +35,10 @@ class FavoritesFragment : Fragment() {
         return root
     }
 
+    override fun onPause() {
+        super.onPause()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
