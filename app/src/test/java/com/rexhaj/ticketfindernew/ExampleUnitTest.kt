@@ -1,4 +1,4 @@
-package com.example.ticketfindernew
+package com.rexhaj.ticketfindernew
 
 import org.junit.Test
 

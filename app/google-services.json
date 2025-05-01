@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "283605841671",
+    "project_id": "ticketfinder-849c9",
+    "storage_bucket": "ticketfinder-849c9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283605841671:android:5a55b4b068eaca98a337a2",
+        "android_client_info": {
+          "package_name": "com.rexhaj.ticketfinderapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-Hsyj9TFeEpZf8078TODICWqo76TJQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283605841671:android:66bba2d5143169f2a337a2",
+        "android_client_info": {
+          "package_name": "com.rexhaj.ticketfindernew"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-Hsyj9TFeEpZf8078TODICWqo76TJQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

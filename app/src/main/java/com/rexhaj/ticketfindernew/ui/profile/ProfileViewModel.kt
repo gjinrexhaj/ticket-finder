@@ -1,4 +1,4 @@
-package com.example.ticketfindernew.ui.profile
+package com.rexhaj.ticketfindernew.ui.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

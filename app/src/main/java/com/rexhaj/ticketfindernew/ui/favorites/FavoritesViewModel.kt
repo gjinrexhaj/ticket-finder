@@ -1,4 +1,4 @@
-package com.example.ticketfindernew.ui.favorites
+package com.rexhaj.ticketfindernew.ui.favorites
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.ticketfindernew.ui.profile.ProfileFragment"
+        android:name="com.rexhaj.ticketfindernew.ui.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.ticketfindernew.ui.search.SearchFragment"
+        android:name="com.rexhaj.ticketfindernew.ui.search.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.example.ticketfindernew.ui.favorites.FavoritesFragment"
+        android:name="com.rexhaj.ticketfindernew.ui.favorites.FavoritesFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorites" />
 </navigation>
