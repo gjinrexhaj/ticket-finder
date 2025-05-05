@@ -1,6 +1,7 @@
 package com.rexhaj.ticketfindernew.ui.search
 
 import android.app.AlertDialog
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,10 +54,10 @@ class SearchFragment : Fragment() {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textSearch
-        searchViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+//        val textView: TextView = binding.textSearch
+//        searchViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
 
         // TO ACCESS STUFF, DO _binding.
 
@@ -164,6 +166,7 @@ class SearchFragment : Fragment() {
         Log.d(TAG, "Making API call with queries | city: $city, category: $category")
         eventAPI.getEventInfo(city, category, sort, BuildConfig.apiKeySafe
         ).enqueue(object : Callback<EventData>{
+            @RequiresApi(Build.VERSION_CODES.R)
             override fun onResponse(p0: Call<EventData>, p1: Response<EventData>) {
                 Log.d(TAG, "onResponse")
 
@@ -194,6 +197,7 @@ class SearchFragment : Fragment() {
         })
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun showResults(events: List<Event>) {
         // Populate recyclerView adapter
         recyclerView.adapter = RecyclerAdapter(events)
