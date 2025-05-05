@@ -1,13 +1,18 @@
 package com.rexhaj.ticketfindernew
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.rexhaj.ticketfindernew.databinding.ActivityMainBinding
+
+private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,5 +36,25 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
+        // get instance of firebase user
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            Log.d(TAG, "user is signed in: ${currentUser.email}")
+        } else {
+            Log.d(TAG, "user is not signed in")
+        }
+
+        // get cloud firestore instance
+        var db = FirebaseFirestore.getInstance()
+
+        val user = db.collection("users")
+            .document("john")
+            .get()
+        // typically wanna do on success listener
+        Log.d(TAG, "user: $user")
+        Log.d(TAG, "next")
+
     }
 }
