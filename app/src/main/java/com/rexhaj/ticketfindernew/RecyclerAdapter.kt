@@ -1,6 +1,7 @@
 package com.rexhaj.ticketfindernew
 
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import java.sql.Time
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.TimeZone
 
 
 private const val TAG = "RecyclerAdapter"
@@ -70,6 +76,7 @@ class RecyclerAdapter(private val events: List<Event>) : RecyclerView.Adapter<Re
         return numEvents
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // Create references to data returned from API
         val currentEvent = events[position]
@@ -93,6 +100,7 @@ class RecyclerAdapter(private val events: List<Event>) : RecyclerView.Adapter<Re
         }
         holder.venueAddress.text = address
         // DATE AND TIME
+        // TODO: represent time in 12hr format as opposed to military time
         var ref = dates.start
         var dateAndTime = "Date: ${ref.localDate}"
         if (ref.dateTBD) {
