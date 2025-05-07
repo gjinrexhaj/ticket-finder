@@ -13,6 +13,7 @@ data class EventList(
 data class Event(
     val name: String,
     val url: String,
+    val id : String,
     val images: List<Images>,
     val dates: Dates,
     val priceRanges: List<Prices>,

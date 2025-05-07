@@ -1,21 +1,35 @@
 package com.rexhaj.ticketfindernew
 
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.gms.maps.GoogleMap
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.sql.Time
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.TimeZone
 
 
 private const val TAG = "RecyclerAdapter"
 
+val user = FirebaseAuth.getInstance()
 
 class RecyclerAdapter(private val events: List<Event>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
@@ -31,12 +45,42 @@ class RecyclerAdapter(private val events: List<Event>) : RecyclerView.Adapter<Re
         val eventDateAndTime = itemView.findViewById<TextView>(R.id.rv_textView_eventDateAndTime)
         val priceRange = itemView.findViewById<TextView>(R.id.rv_textView_priceRange)
         val seeTickets = itemView.findViewById<Button>(R.id.rv_button_seeTickets)
+        var directionsButton = itemView.findViewById<Button>(R.id.rv_button_directions)
+        lateinit var favoriteButton: ImageButton
+        //val favoriteButton = itemView.findViewById<Button>(R.id.rv_button_favorite)
+
 
         // define a var to store url into
         var thisURL = ""
+        var thisID = ""
+        var thisAddress = ""
 
         // Primary constructor
         init {
+
+            // if user is logged in, show and create ref to favorite button
+            if (user.currentUser != null) {
+                Log.d(TAG, "signed in, showing favorite button")
+                favoriteButton = itemView.findViewById(R.id.rv_button_favorite)
+                favoriteButton.visibility = VISIBLE
+                favoriteButton.setOnClickListener() {
+                    Log.d(TAG, "favorite button clicked: thisID: $thisID")
+                }
+
+                // TODO: store this favorite as an entry in firebase "favorites" list
+                val docRef = FirebaseFirestore.getInstance().collection("users").document(user.currentUser!!.uid)
+            }
+
+            // implement directions functionality
+            directionsButton.setOnClickListener() {
+                Log.d(TAG, "directionsButton clicked! thisAddress = $thisAddress")
+
+                val gmmIntentUri =
+                    Uri.parse("geo:0,0?q=$thisAddress")
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+                itemView.context.startActivity(mapIntent)
+            }
 
             // initially set prices ranges to be invisible
             priceRange.isVisible = false
@@ -70,12 +114,14 @@ class RecyclerAdapter(private val events: List<Event>) : RecyclerView.Adapter<Re
         return numEvents
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // Create references to data returned from API
         val currentEvent = events[position]
         val eventName = currentEvent.name
         val images = currentEvent.images
         val url = currentEvent.url
+        val id = currentEvent.id
         val dates = currentEvent.dates
         val priceRanges = currentEvent.priceRanges
         val venue = currentEvent._embedded.venues[0]
@@ -93,6 +139,7 @@ class RecyclerAdapter(private val events: List<Event>) : RecyclerView.Adapter<Re
         }
         holder.venueAddress.text = address
         // DATE AND TIME
+        // TODO: represent time in 12hr format as opposed to military time
         var ref = dates.start
         var dateAndTime = "Date: ${ref.localDate}"
         if (ref.dateTBD) {
@@ -125,8 +172,11 @@ class RecyclerAdapter(private val events: List<Event>) : RecyclerView.Adapter<Re
         } else {
             Log.d(TAG, "highestQualityImage = null")
         }
-        // SEE TICKETS LINK BUTTON
+        // BUTTON FUNCTIONALITY
         holder.thisURL = url
+        holder.thisID = id
+        holder.thisAddress = address
+
     }
 
 
