@@ -1,7 +1,6 @@
 package com.rexhaj.ticketfindernew.ui.profile
 
 import android.app.Activity
-import android.content.res.Resources.Theme
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -41,6 +40,14 @@ class ProfileFragment : Fragment() {
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        //val textView: TextView = binding.textProfile
+        //profileViewModel.text.observe(viewLifecycleOwner) {
+        //    textView.text = it
+        //}
+
+
+        // FIREBASE AUTH
 
 
         // If signed in, disable sign in / register button and replace with sign out button
@@ -85,6 +92,7 @@ class ProfileFragment : Fragment() {
 
 
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
+        val response = result.idpResponse
 
         if (result.resultCode == Activity.RESULT_OK) {
             // Successfully signed in
@@ -123,6 +131,7 @@ class ProfileFragment : Fragment() {
     private fun handleAccountCreation() {
         // check if uid exists for user in db, create db entry for account if not
         val currentUser = FirebaseAuth.getInstance().currentUser
+        var db = FirebaseFirestore.getInstance()
 
         val docRef = FirebaseFirestore.getInstance().collection("users").document(currentUser!!.uid)
         docRef.get().addOnSuccessListener { document ->
@@ -132,20 +141,28 @@ class ProfileFragment : Fragment() {
             } else {
                 // Value does not exist
                 Log.d(TAG, "uid DNE, creating account")
-                // TODO: see if removing time check breaks anything
                 if (currentUser.metadata?.creationTimestamp == currentUser.metadata?.lastSignInTimestamp) {
                     Log.d(TAG, "ACCOUNT HAS BEEN CREATED")
                     val db = FirebaseFirestore.getInstance()
 
-                    Log.d(TAG, "storing data: ${currentUser.email}, ${currentUser.uid}, null")
-                    val userData = User(currentUser.email, currentUser.uid, null)
+                    var eventList: EventList? = null
+
+                    Log.d(TAG, "storing data: ${currentUser.email}, ${currentUser.uid}, $eventList")
+                    val userData = User(currentUser.email, currentUser.uid, eventList)
 
                     // Add user data to Firestore
                     db.collection("users").document(currentUser.uid)
                         .set(userData)
-                        .addOnSuccessListener { Log.d(TAG, "User successfully created in db") }
-                        .addOnFailureListener { Log.w(TAG, "User db creation failed!") }
+                        .addOnSuccessListener {
+                            // Data stored successfully
+                            Log.d(TAG, "User successfully created in db")
+                        }
+                        .addOnFailureListener { e ->
+                            // Handle the error
+                            Log.w(TAG, "User db creation failed!")
+                        }
                 }
+
             }
         }
     }
