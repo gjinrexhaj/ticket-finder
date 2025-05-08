@@ -48,7 +48,7 @@
         android:id="@+id/imageView_profileImage"
         android:layout_width="162dp"
         android:layout_height="167dp"
-        android:src="@drawable/baseline_account_circle_24"
+        android:src="@drawable/outline_account_circle_24"
         app:layout_constraintBottom_toTopOf="@+id/textView_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.net.toUri
@@ -96,6 +97,7 @@ class RecyclerAdapter(private val events: List<Event>) : RecyclerView.Adapter<Re
                                         Log.d(TAG, "Duplicate found, removing ${favList.iterator()}")
                                         iterator.remove()
                                         duplicate = true
+                                        Toast.makeText(itemView.context, "Successfully removed from favorites", Toast.LENGTH_SHORT).show()
 
                                     }
                                 }
@@ -104,6 +106,7 @@ class RecyclerAdapter(private val events: List<Event>) : RecyclerView.Adapter<Re
                                     Log.d(TAG, "no duplicates found, appending $thisID to favList")
                                     favList.add(thisID)
                                     Log.d(TAG, "favList = $favList")
+                                    Toast.makeText(itemView.context, "Successfully added to favorites", Toast.LENGTH_SHORT).show()
                                 }
 
                                 // Upload new favList to remote db
