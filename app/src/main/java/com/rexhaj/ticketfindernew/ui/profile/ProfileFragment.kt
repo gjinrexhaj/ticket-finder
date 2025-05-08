@@ -145,10 +145,9 @@ class ProfileFragment : Fragment() {
                     Log.d(TAG, "ACCOUNT HAS BEEN CREATED")
                     val db = FirebaseFirestore.getInstance()
 
-                    var eventList: EventList? = null
 
-                    Log.d(TAG, "storing data: ${currentUser.email}, ${currentUser.uid}, $eventList")
-                    val userData = User(currentUser.email, currentUser.uid, eventList)
+                    Log.d(TAG, "storing data: ${currentUser.email}, ${currentUser.uid}, null")
+                    val userData = User(currentUser.email, currentUser.uid, null)
 
                     // Add user data to Firestore
                     db.collection("users").document(currentUser.uid)
