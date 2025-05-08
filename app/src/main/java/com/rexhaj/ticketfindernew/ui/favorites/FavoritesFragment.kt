@@ -32,21 +32,9 @@ class FavoritesFragment : Fragment() {
         val root: View = binding.root
 
 
-        // IF NOT SIGNED IN, DISABLE AND SHOW MESSAGE
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        if (currentUser == null) {
-            binding.textViewPleaseSignIn.setVisibility(VISIBLE)
-        } else {
-            binding.textViewPleaseSignIn.setVisibility(GONE)
-            binding.recyclerViewFavorites.setVisibility(VISIBLE)
-            // TODO: POPULATE RECYCLERVIEW ADAPTER WITH FAVORITES PULLED FROM DB,
-            //  AND IMPLEMENT FAVORITING AN ITEM IN RECYCLERVIEW
-        }
+        // TODO: make API call with event id for every thing in DB to populate recyclerView
 
-        //val textView: TextView = binding.textFavorites
-        //favoritesViewModel.text.observe(viewLifecycleOwner) {
-        //    textView.text = it
-        //}
+
         return root
     }
 

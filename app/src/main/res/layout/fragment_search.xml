@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        tools:listitem="@layout/row_item" />
+        tools:listitem="@layout/search_row_item" />
 
     <TextView
         android:id="@+id/textView_noResultsFound"

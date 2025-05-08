@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -203,10 +202,6 @@ class SearchFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(this.context)
     }
 
-
-
-    // TODO: make recyclerView persist (might need to use onPause/Resume
-    //    callbacks)
     override fun onPause() {
         super.onPause()
     }
