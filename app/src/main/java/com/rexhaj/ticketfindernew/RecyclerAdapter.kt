@@ -65,10 +65,83 @@ class RecyclerAdapter(private val events: List<Event>) : RecyclerView.Adapter<Re
                 favoriteButton.visibility = VISIBLE
                 favoriteButton.setOnClickListener() {
                     Log.d(TAG, "favorite button clicked: thisID: $thisID")
-                }
+                    // TODO: store this favorite as an entry in firebase "favorites" list
+                    val db = FirebaseFirestore.getInstance()
 
-                // TODO: store this favorite as an entry in firebase "favorites" list
-                val docRef = FirebaseFirestore.getInstance().collection("users").document(user.currentUser!!.uid)
+                    var favorites: Any?
+
+                    db.collection("users").document(user.currentUser!!.uid)
+                        .get()
+                        .addOnSuccessListener { documents ->
+
+                            // get favorites
+                            favorites = documents.get("favorites")
+                            Log.d(TAG, "document.get(\"favorites\") = $favorites")
+
+                            // if list DNE, make a new one
+                            // otherwise, search entire list, if duplicate, remove entry, if none, add entry
+                            if (favorites != null) {
+                                var favList: MutableList<String>
+                                favList = favorites as MutableList<String>
+                                Log.d(TAG, "favList = ${favList}")
+                                // now search entire list and handle adding/removing fav
+                                Log.d(TAG, "looping thought favList...")
+                                var duplicate = false
+
+
+                                val iterator = favList.iterator()
+                                while (iterator.hasNext()) {
+                                    val element = iterator.next()
+                                    if (element == thisID) {
+                                        Log.d(TAG, "Duplicate found, removing ${favList.iterator()}")
+                                        iterator.remove()
+                                        duplicate = true
+
+                                    }
+                                }
+
+                                if (!duplicate) {
+                                    Log.d(TAG, "no duplicates found, appending $thisID to favList")
+                                    favList.add(thisID)
+                                    Log.d(TAG, "favList = $favList")
+                                }
+
+                                // Upload new favList to remote db
+                                val userDocument = db.collection("users").document(user.currentUser!!.uid)
+
+                                userDocument.update("favorites", favList)
+                                    .addOnSuccessListener {
+                                        // List successfully uploaded
+                                        Log.d(TAG, "Successfully uploaded ${favList} to favorites key in db")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        // Handle the error
+                                        Log.d(TAG, "Failed to upload ${favList} to favorites key in db")
+                                    }
+                            } else {
+                                // create new list on db and populate with thisID
+                                Log.d(TAG, "favList = null, creating new list and adding ID into it")
+                                val newList = mutableListOf<String>()
+                                newList.add(thisID)
+
+                                val userDocument = db.collection("users").document(user.currentUser!!.uid)
+
+                                userDocument.update("favorites", newList)
+                                    .addOnSuccessListener {
+                                        // List successfully uploaded
+                                        Log.d(TAG, "Successfully uploaded ${newList} to favorites key in db")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        // Handle the error
+                                        Log.d(TAG, "Failed to upload ${newList} to favorites key in db")
+                                    }
+
+                            }
+                        }
+                        .addOnFailureListener() {
+                            Log.d(TAG, "${db.collection("favorites").get()} has failed")
+                        }
+                }
             }
 
             // implement directions functionality
