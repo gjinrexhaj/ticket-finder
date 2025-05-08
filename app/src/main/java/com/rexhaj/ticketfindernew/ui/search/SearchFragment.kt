@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rexhaj.ticketfindernew.BuildConfig
 import com.rexhaj.ticketfindernew.Event
 import com.rexhaj.ticketfindernew.EventData
-import com.rexhaj.ticketfindernew.RecyclerAdapter
 import com.rexhaj.ticketfindernew.databinding.FragmentSearchBinding
 import retrofit2.Call
 import retrofit2.Callback

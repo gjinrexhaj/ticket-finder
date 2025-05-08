@@ -1,39 +1,36 @@
-package com.rexhaj.ticketfindernew
+package com.rexhaj.ticketfindernew.ui.favorites
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-/*
+import com.rexhaj.ticketfindernew.Event
+import com.rexhaj.ticketfindernew.R
+
 
 private const val TAG = "RecyclerAdapter"
 
 val userInstance = FirebaseAuth.getInstance()
 
-class FavoriteRecyclerAdapter (private val events: List<Event>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class FavoriteRecyclerAdapter (private val events: List<Event>) :
+    RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
 
 
     // Inner class
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         // Provides reference to views present in a row item
 
-        // TODO: IMPLEMENT FAV-RECYCL-ADAPTER
         val eventName = itemView.findViewById<TextView>(R.id.rv_fav_eventName)
         val venueNameAndCity = itemView.findViewById<TextView>(R.id.rv_fav_venueNameAndCity)
         val venueAddress = itemView.findViewById<TextView>(R.id.rv_fav_venueAddress)
@@ -56,7 +53,6 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) : RecyclerView.A
             if (userInstance.currentUser != null) {
                 unfavoriteButton.setOnClickListener() {
                     Log.d(TAG, "favorite button clicked: thisID: $thisID")
-                    // TODO: REMOVE CORRESPONDING EVENT ID FOR THIS EVENT
                     val db = FirebaseFirestore.getInstance()
 
                     var favorites: Any?
@@ -65,7 +61,6 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) : RecyclerView.A
                     db.collection("users").document(userInstance.currentUser!!.uid)
                         .get()
                         .addOnSuccessListener { documents ->
-
                             // get favorites
                             favorites = documents.get("favorites")
                             Log.d(TAG, "document.get(\"favorites\") = $favorites")
@@ -144,14 +139,15 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) : RecyclerView.A
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteRecyclerAdapter.ViewHolder {
         // create new views
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.favorite_row_item, parent, false)
-        return ViewHolder(view)
+            R.layout.favorite_row_item, parent, false
+        )
+        return FavoriteRecyclerAdapter.ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoriteRecyclerAdapter.ViewHolder, position: Int) {
         // Create references to data returned from API
         val currentEvent = events[position]
         val eventName = currentEvent.name
@@ -167,11 +163,14 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) : RecyclerView.A
         // EVENT VENUE AND CITY
         val venueNameAndCity = "${venue.name}, ${venue.city.name}"
         holder.venueNameAndCity.text = venueNameAndCity
+
+
         // EVENT ADDRESS
         var address = "${venue.address.line1}, ${venue.city.name}"
         if (venue.state.stateCode != null) {
             address += ", ${venue.state.stateCode}"
         }
+
         holder.venueAddress.text = address
         // DATE AND TIME
         // TODO: represent time in 12hr format as opposed to military time
@@ -199,14 +198,10 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) : RecyclerView.A
         holder.thisAddress = address
     }
 
+
     override fun getItemCount(): Int {
         val numEvents = events.size
         Log.d(TAG, "recyclerView count is: $numEvents")
         return numEvents
     }
-
-
 }
-
-
- */

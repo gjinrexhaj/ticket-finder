@@ -8,5 +8,5 @@ med (1pt each):
 
 hard (2pts each):
 
-- fragments (bottom nav) (NEED IMPL FAVORITES)
-- firebase firestore (NEED IMPL FAVORITES)
+- fragments (bottom nav) (DONE (fav needs some polish and optimization))
+- firebase firestore (DONE)

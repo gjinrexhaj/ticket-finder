@@ -7,8 +7,10 @@ data class EventData(
 )
 
 data class EventList(
-    val events: List<Event>
-)
+    val events: MutableList<Event>
+) {
+    constructor() : this(events = mutableListOf<Event>())
+}
 
 data class Event(
     val name: String,
