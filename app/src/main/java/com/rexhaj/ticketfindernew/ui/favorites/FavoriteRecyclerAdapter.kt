@@ -182,7 +182,8 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) : RecyclerView.A
         holder.venueAddress.text = address
         // DATE AND TIME
         var ref = dates.start
-        var dateAndTime = "Date: ${ref.localDate}"
+        var rawDate = ref.localDate
+        var dateAndTime = "Date: ${convertDate(rawDate)}"
         if (ref.dateTBD) {
             dateAndTime = "Date: TBD"
         } else if (ref.noSpecificTime) {
@@ -197,8 +198,7 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) : RecyclerView.A
         // TICKET RANGE - show first hit for priceRanges
         if (priceRanges != null) {
             holder.priceRange.isVisible = true
-            holder.priceRange.text = "$${priceRanges[0].min}"
-            holder.priceRange.text = "$${priceRanges[0].max}"
+            holder.priceRange.text = "$${priceRanges[0].min} - $${priceRanges[0].max} "
         }
         // BUTTON FUNCTIONALITY
         holder.thisURL = url
@@ -221,6 +221,13 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) : RecyclerView.A
         var regularHours = if (hours == 0 || hours == 24) 12 else if (hours > 12) hours - 12 else hours
 
         return String.format("%d:%02d %s", regularHours, minutes, period)
+    }
+
+    // helper function to convert date
+    fun convertDate(date: String): String {
+        var splitDate = date.split("-")
+        val newDate = "${splitDate[1]}/${splitDate[2]}/${splitDate[0]}"
+        return newDate
     }
 
 }
