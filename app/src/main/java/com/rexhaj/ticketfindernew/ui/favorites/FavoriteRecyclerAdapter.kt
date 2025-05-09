@@ -1,10 +1,13 @@
 package com.rexhaj.ticketfindernew.ui.favorites
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
@@ -17,9 +20,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.rexhaj.ticketfindernew.Event
 import com.rexhaj.ticketfindernew.R
+import androidx.core.graphics.toColorInt
 
 
-private const val TAG = "RecyclerAdapter"
+private const val TAG = "FavoriteRecyclerAdapter"
 
 val userInstance = FirebaseAuth.getInstance()
 
@@ -27,6 +31,8 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
     RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
 
 
+
+        private var eventData = events
     // Inner class
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         // Provides reference to views present in a row item
@@ -56,6 +62,24 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
                     val db = FirebaseFirestore.getInstance()
 
                     var favorites: Any?
+
+                    // Get rid of entries on recyclerView when unfavorited
+                    eventName.text = "EVENT HAS BEEN REMOVED FROM FAVORITES"
+                    eventName.setTextColor("#ff0000".toColorInt())
+                    venueNameAndCity.visibility = GONE
+                    venueAddress.visibility = GONE
+                    eventDateAndTime.visibility = GONE
+                    priceRange.visibility = GONE
+                    seeTickets.visibility = GONE
+                    directionsButton.visibility = GONE
+                    unfavoriteButton.visibility = GONE
+
+                    /*
+                    eventName
+                    venueNameAndCity
+                    venueAddress
+                    eventDateAndTime
+                     */
 
                     // get db info
                     db.collection("users").document(userInstance.currentUser!!.uid)
@@ -145,6 +169,7 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
             R.layout.favorite_row_item, parent, false
         )
         return FavoriteRecyclerAdapter.ViewHolder(view)
+
     }
 
     override fun onBindViewHolder(holder: FavoriteRecyclerAdapter.ViewHolder, position: Int) {
@@ -197,7 +222,6 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
         holder.thisID = id
         holder.thisAddress = address
     }
-
 
     override fun getItemCount(): Int {
         val numEvents = events.size

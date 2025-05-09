@@ -1,12 +1,14 @@
 package com.rexhaj.ticketfindernew.ui.search
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
@@ -51,15 +53,9 @@ class SearchFragment : Fragment() {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        val textView: TextView = binding.textSearch
-//        searchViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-
-        // TO ACCESS STUFF, DO _binding.
-
         // Create reference to recyclerView
         recyclerView = _binding!!.recyclerView
+
 
         // Create JSpinner entries dynamically
         val eventList = listOf("Choose an event category",

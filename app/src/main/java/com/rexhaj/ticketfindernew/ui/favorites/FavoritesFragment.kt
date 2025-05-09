@@ -59,28 +59,27 @@ class FavoritesFragment : Fragment() {
             binding.textViewPleaseSignIn.visibility = INVISIBLE
             binding.recyclerViewFavorites.visibility = VISIBLE
 
+            // create reference to recyclerView
+            favRecyclerView = _binding!!.recyclerViewFavorites
 
-        // create reference to recyclerView
-        favRecyclerView = _binding!!.recyclerViewFavorites
+            // Get favList from db
+            val db = FirebaseFirestore.getInstance()
+            var favorites: Any?
+            var favList: MutableList<String>? = null
 
-        // Get favList from db
-        val db = FirebaseFirestore.getInstance()
-        var favorites: Any?
-        var favList: MutableList<String>? = null
+            db.collection("users").document(user.currentUser!!.uid)
+                .get()
+                .addOnSuccessListener { documents ->
 
-        db.collection("users").document(user.currentUser!!.uid)
-            .get()
-            .addOnSuccessListener { documents ->
+                    // get favorites
+                    favorites = documents.get("favorites")
+                    Log.d(TAG, "document.get(\"favorites\") = $favorites")
 
-                // get favorites
-                favorites = documents.get("favorites")
-                Log.d(TAG, "document.get(\"favorites\") = $favorites")
+                    favList = favorites as MutableList<String>
+                    Log.d(TAG, "favList = ${favList}")
 
-                favList = favorites as MutableList<String>
-                Log.d(TAG, "favList = ${favList}")
-
-                searchById(favList!!)
-            }
+                    searchById(favList!!)
+                }
         }
 
         // TODO: CALL favShowResults WHEN UNFAVORITE IS CLICKED TO UPDATE THE PAGE
@@ -150,13 +149,13 @@ class FavoritesFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun favShowResults(events: EventList) {
+     private fun favShowResults(events: EventList) {
         Log.d(TAG, "calling favShowResults with data: $favoritesEventList")
         // Populate recyclerView adapter
         favRecyclerView.adapter = FavoriteRecyclerAdapter(events.events)
         Log.d(TAG, "populating recyclerView with ${events.events}")
         favRecyclerView.layoutManager = LinearLayoutManager(this.context)
-    }
+     }
 
     override fun onPause() {
         super.onPause()
