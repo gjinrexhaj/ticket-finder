@@ -61,6 +61,9 @@ class RecyclerAdapter(private val events: List<Event>) :
                 Log.d(TAG, "signed in, showing favorite button")
                 favoriteButton = itemView.findViewById(R.id.rv_button_favorite)
                 favoriteButton.visibility = VISIBLE
+
+                // Implement favorite button, which appends ID of favorited event to
+                // 'favorites' array on firestore
                 favoriteButton.setOnClickListener() {
                     Log.d(TAG, "favorite button clicked: thisID: $thisID")
 
@@ -282,7 +285,7 @@ class RecyclerAdapter(private val events: List<Event>) :
     }
 
 
-    // Helper function to convert military time into standard time
+    // helper function to convert military time into standard time
     fun convertMilitaryTimeToRegular(militaryTime: String): String {
         val (hours, minutes) = militaryTime.split(":").map { it.toInt() }
 
@@ -291,7 +294,4 @@ class RecyclerAdapter(private val events: List<Event>) :
 
         return String.format("%d:%02d %s", regularHours, minutes, period)
     }
-
-
-
 }

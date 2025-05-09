@@ -36,19 +36,12 @@ class ProfileFragment : Fragment() {
     ): View {
         val profileViewModel =
             ViewModelProvider(this).get(ProfileViewModel::class.java)
-        //val currentUser = FirebaseAuth.getInstance().currentUser
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        //val textView: TextView = binding.textProfile
-        //profileViewModel.text.observe(viewLifecycleOwner) {
-        //    textView.text = it
-        //}
-
 
         // FIREBASE AUTH
-
 
         // If signed in, disable sign in / register button and replace with sign out button
         // also fill in account details
@@ -99,9 +92,7 @@ class ProfileFragment : Fragment() {
             Log.d(TAG, "Sign in success!")
             updateAuthUI()
         } else {
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
+            // Sign in failed
             Log.d(TAG, "Sign in failed!")
         }
     }
@@ -113,8 +104,9 @@ class ProfileFragment : Fragment() {
     private fun updateAuthUI() {
         val currentUser = FirebaseAuth.getInstance().currentUser
 
+        // if successfully signed in, show user info in view
         if (currentUser != null) {
-            // handle sign in account creation stuff in separate function
+            // if successful sign in, create user on firestore
             handleAccountCreation()
             binding.textViewEmailField.text = currentUser.email
             binding.buttonLoginOrRegister.setEnabled(false)
@@ -131,7 +123,6 @@ class ProfileFragment : Fragment() {
     private fun handleAccountCreation() {
         // check if uid exists for user in db, create db entry for account if not
         val currentUser = FirebaseAuth.getInstance().currentUser
-        var db = FirebaseFirestore.getInstance()
 
         val docRef = FirebaseFirestore.getInstance().collection("users").document(currentUser!!.uid)
         docRef.get().addOnSuccessListener { document ->

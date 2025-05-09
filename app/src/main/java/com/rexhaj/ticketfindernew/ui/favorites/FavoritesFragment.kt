@@ -82,14 +82,14 @@ class FavoritesFragment : Fragment() {
                 }
         }
 
-        // TODO: CALL favShowResults WHEN UNFAVORITE IS CLICKED TO UPDATE THE PAGE
         return root
     }
 
 
     private val BASE_URL = "https://app.ticketmaster.com/discovery/v2/"
-    // Search functions, replace EventService interface with new IDService interface
 
+
+    // search by id function, makes API call using ID stored for a given user pulled from db
     @RequiresApi(Build.VERSION_CODES.R)
     private fun searchById(idList: MutableList<String>) {
         Log.d(TAG, "searchById($idList)")
@@ -102,8 +102,6 @@ class FavoritesFragment : Fragment() {
         Log.d(TAG, "Making API call with queries | id: $id")
 
         // ITERATE THROUGH ENTIRE LIST, MAKE API CALL FOR EACH AND BIND TO RECYCLERVIEW
-        // Initialize favoritesEventList
-        // favoritesEventList = EventData(EventList())
         favoritesEventList = EventList()
 
         val iterator = idList.iterator()
@@ -113,7 +111,6 @@ class FavoritesFragment : Fragment() {
         }
 
         Log.d(TAG, "list popluation finished")
-        //favShowResults(favoritesEventList)
     }
 
     private fun makeApiCall(api: IDService, element: String) {
@@ -148,10 +145,10 @@ class FavoritesFragment : Fragment() {
         })
     }
 
+    // populate the recyclerView adapter with stuff returned from API call
     @RequiresApi(Build.VERSION_CODES.R)
      private fun favShowResults(events: EventList) {
         Log.d(TAG, "calling favShowResults with data: $favoritesEventList")
-        // Populate recyclerView adapter
         favRecyclerView.adapter = FavoriteRecyclerAdapter(events.events)
         Log.d(TAG, "populating recyclerView with ${events.events}")
         favRecyclerView.layoutManager = LinearLayoutManager(this.context)

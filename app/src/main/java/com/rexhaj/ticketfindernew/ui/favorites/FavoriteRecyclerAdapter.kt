@@ -27,16 +27,11 @@ private const val TAG = "FavoriteRecyclerAdapter"
 
 val userInstance = FirebaseAuth.getInstance()
 
-class FavoriteRecyclerAdapter (private val events: List<Event>) :
-    RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
+class FavoriteRecyclerAdapter (private val events: List<Event>) : RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
 
-
-
-        private var eventData = events
     // Inner class
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        // Provides reference to views present in a row item
-
+        // provide reference to views present in a row item
         val eventName = itemView.findViewById<TextView>(R.id.rv_fav_eventName)
         val venueNameAndCity = itemView.findViewById<TextView>(R.id.rv_fav_venueNameAndCity)
         val venueAddress = itemView.findViewById<TextView>(R.id.rv_fav_venueAddress)
@@ -45,7 +40,6 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
         val seeTickets = itemView.findViewById<Button>(R.id.rv_fav_seeTickets)
         var directionsButton = itemView.findViewById<Button>(R.id.rv_fav_directions)
         var unfavoriteButton = itemView.findViewById<ImageView>(R.id.rv_fav_buttonUnfavorite)
-
 
         // define a var to store url into
         var thisURL = ""
@@ -60,10 +54,9 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
                 unfavoriteButton.setOnClickListener() {
                     Log.d(TAG, "favorite button clicked: thisID: $thisID")
                     val db = FirebaseFirestore.getInstance()
-
                     var favorites: Any?
 
-                    // Get rid of entries on recyclerView when unfavorited
+                    // get rid of entries on recyclerView when unfavorited
                     eventName.text = "EVENT REMOVED FROM FAVORITES"
                     eventName.setTextColor("#ff0000".toColorInt())
                     venueNameAndCity.visibility = GONE
@@ -74,12 +67,6 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
                     directionsButton.visibility = GONE
                     unfavoriteButton.visibility = GONE
 
-                    /*
-                    eventName
-                    venueNameAndCity
-                    venueAddress
-                    eventDateAndTime
-                     */
 
                     // get db info
                     db.collection("users").document(userInstance.currentUser!!.uid)
@@ -97,8 +84,6 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
                                 Log.d(TAG, "favList = ${favList}")
                                 // now search entire list and handle adding/removing fav
                                 Log.d(TAG, "looping thought favList...")
-                                var duplicate = false
-
 
                                 val iterator = favList.iterator()
                                 while (iterator.hasNext()) {
@@ -146,6 +131,8 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
 
             // initially set prices ranges to be invisible
             priceRange.isVisible = false
+
+            // implement 'see tickets' button
             seeTickets.setOnClickListener() {
                 Log.d(
                     TAG, "seeTickets() has been clicked | " +
@@ -155,7 +142,6 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
 
                 // Open web browser implicit intent
                 val browserIntent = Intent(Intent.ACTION_VIEW)
-                //browserIntent.data = Uri.parse(thisURL)
                 browserIntent.data = thisURL.toUri()
                 itemView.context.startActivity(browserIntent)
 
@@ -163,16 +149,16 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteRecyclerAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // create new views
         val view = LayoutInflater.from(parent.context).inflate(
             R.layout.favorite_row_item, parent, false
         )
-        return FavoriteRecyclerAdapter.ViewHolder(view)
+        return ViewHolder(view)
 
     }
 
-    override fun onBindViewHolder(holder: FavoriteRecyclerAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // Create references to data returned from API
         val currentEvent = events[position]
         val eventName = currentEvent.name
@@ -188,14 +174,11 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
         // EVENT VENUE AND CITY
         val venueNameAndCity = "${venue.name}, ${venue.city.name}"
         holder.venueNameAndCity.text = venueNameAndCity
-
-
         // EVENT ADDRESS
         var address = "${venue.address.line1}, ${venue.city.name}"
         if (venue.state.stateCode != null) {
             address += ", ${venue.state.stateCode}"
         }
-
         holder.venueAddress.text = address
         // DATE AND TIME
         var ref = dates.start
@@ -230,7 +213,7 @@ class FavoriteRecyclerAdapter (private val events: List<Event>) :
     }
 
 
-    // Heloer method to convert military time into 12hr format
+    // helper method to convert military time into 12hr format
     fun convertMilitaryTimeToRegular(militaryTime: String): String {
         val (hours, minutes) = militaryTime.split(":").map { it.toInt() }
 
