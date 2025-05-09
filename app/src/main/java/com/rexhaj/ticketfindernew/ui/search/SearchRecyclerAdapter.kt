@@ -241,7 +241,6 @@ class RecyclerAdapter(private val events: List<Event>) :
         }
         holder.venueAddress.text = address
         // DATE AND TIME
-        // TODO: represent time in 12hr format as opposed to military time
         var ref = dates.start
         var dateAndTime = "Date: ${ref.localDate}"
         if (ref.dateTBD) {
@@ -251,7 +250,8 @@ class RecyclerAdapter(private val events: List<Event>) :
         } else if (ref.timeTBD) {
             dateAndTime += " @ Time TBD"
         } else {
-            dateAndTime += " @ ${ref.localTime}"
+            val militaryTime = ref.localTime
+            dateAndTime += " @ ${convertMilitaryTimeToRegular(militaryTime)}"
         }
         holder.eventDateAndTime.text = dateAndTime
         // TICKET RANGE - show first hit for priceRanges
@@ -280,6 +280,18 @@ class RecyclerAdapter(private val events: List<Event>) :
         holder.thisAddress = address
 
     }
+
+
+    // Helper function to convert military time into standard time
+    fun convertMilitaryTimeToRegular(militaryTime: String): String {
+        val (hours, minutes) = militaryTime.split(":").map { it.toInt() }
+
+        val period = if (hours < 12 || hours == 24) "AM" else "PM"
+        var regularHours = if (hours == 0 || hours == 24) 12 else if (hours > 12) hours - 12 else hours
+
+        return String.format("%d:%02d %s", regularHours, minutes, period)
+    }
+
 
 
 }

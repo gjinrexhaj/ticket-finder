@@ -147,7 +147,7 @@ class ProfileFragment : Fragment() {
 
 
                     Log.d(TAG, "storing data: ${currentUser.email}, ${currentUser.uid}, null")
-                    val userData = User(currentUser.email, currentUser.uid, null)
+                    val userData = User(currentUser.email, currentUser.uid, mutableListOf())
 
                     // Add user data to Firestore
                     db.collection("users").document(currentUser.uid)
