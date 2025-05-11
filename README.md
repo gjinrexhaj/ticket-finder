@@ -9,7 +9,7 @@ and location, and optionally storing their favorites within an account.
 This application is powered by cloud firestore, firebase auth, retrofit, and ticketmaster discovery
 API.
 
-<img src="readme-docs/UI.png" alt="User Interface" width="918"/>
+<img src="readme-docs/UI.png" alt="User Interface" width="518"/>
 
 ## Getting Started
 Make sure you have Android Studio installed and all set up. You can clone this gtihub repo
