@@ -1,30 +1,24 @@
-SATISFIED PROJECT REQUIREMENTS (delete later):
+# TicketFinder
 
-easy (0.5 pts each):
+---
 
-- n/a
+###  Overview
+This is a native android application which allows a user to search for tickets based on category 
+and location, and optionally storing their favorites within an account.
 
-med (1pt each):
+This application is powered by cloud firestore, firebase auth, retrofit, and ticketmaster discovery
+API.
 
-- firebase auth (DONE)
-- google maps SDK (DONE??)
+<img src="readme-docs/UI.png" alt="User Interface" width="918"/>
 
-hard (2pts each):
+## Getting Started
+Make sure you have Android Studio installed and all set up. You can clone this gtihub repo
+in the IDE using the following link:
+```https://github.com/gjinrexhaj/TicketFinderNew.git```
 
-- fragments (bottom nav) (DONE)
-- firebase firestore (DONE)
-
-
-
-**RUNNING INSTRUCTIONS**
-
-Create a local.properties file in the root directory, contents should look something like this:
-
-File: local.properties
+Once you've imported the gradle project, in local.properties, create and insert your API key into
+a new line as follows:
 ```
-sdk.dir=/path/to/your/android/sdk
-apiKey="YOUR-TICKETMASTER-DISCOVERY-API-KEY"
+apiKey="your-ticketmaster-discovery-api-key-here"
 ```
 
-The first line should automatically be filled out once you build the project with Gradle, manually
-add the second line
