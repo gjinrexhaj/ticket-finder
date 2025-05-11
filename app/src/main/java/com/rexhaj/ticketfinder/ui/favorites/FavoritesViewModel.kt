@@ -1,16 +1,13 @@
-package com.rexhaj.ticketfindernew.ui.search
+package com.rexhaj.ticketfinder.ui.favorites
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-private const val TAG = "SearchViewModel"
-
-class SearchViewModel : ViewModel() {
-
+class FavoritesViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is search Fragment"
+        value = "This is favorites Fragment"
     }
     val text: LiveData<String> = _text
 }

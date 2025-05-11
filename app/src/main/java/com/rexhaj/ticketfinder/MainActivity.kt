@@ -1,4 +1,4 @@
-package com.rexhaj.ticketfindernew
+package com.rexhaj.ticketfinder
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.rexhaj.ticketfindernew.databinding.ActivityMainBinding
+import com.rexhaj.ticketfinder.databinding.ActivityMainBinding
 
 private const val TAG = "MainActivity"
 

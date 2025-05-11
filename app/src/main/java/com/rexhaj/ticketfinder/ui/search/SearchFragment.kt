@@ -1,14 +1,12 @@
-package com.rexhaj.ticketfindernew.ui.search
+package com.rexhaj.ticketfinder.ui.search
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
@@ -16,10 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.rexhaj.ticketfindernew.BuildConfig
-import com.rexhaj.ticketfindernew.Event
-import com.rexhaj.ticketfindernew.EventData
-import com.rexhaj.ticketfindernew.databinding.FragmentSearchBinding
+import com.rexhaj.ticketfinder.BuildConfig
+import com.rexhaj.ticketfinder.Event
+import com.rexhaj.ticketfinder.EventData
+import com.rexhaj.ticketfinder.databinding.FragmentSearchBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -146,7 +144,7 @@ class SearchFragment : Fragment() {
             .baseUrl(BASE_URL) // Set the base URL for the REST API
             .addConverterFactory(GsonConverterFactory.create()) // Add Gson converter factory for JSON serialization/deserialization
             .build() // Build the Retrofit instance
-        val eventAPI = retrofit.create(com.rexhaj.ticketfindernew.EventService::class.java)
+        val eventAPI = retrofit.create(com.rexhaj.ticketfinder.EventService::class.java)
 
         // Make an API call - use enqueue to asynchronously call the api
         // BuildConfig.apiKeySafe is built at runtime using local.properties

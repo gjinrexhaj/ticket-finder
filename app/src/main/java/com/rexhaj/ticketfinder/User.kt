@@ -1,4 +1,4 @@
-package com.rexhaj.ticketfindernew
+package com.rexhaj.ticketfinder
 
 data class User(
     val email: String? = null,

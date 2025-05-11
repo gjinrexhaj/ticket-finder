@@ -12,7 +12,7 @@ plugins {
 }
 
 android {
-    namespace = "com.rexhaj.ticketfindernew"
+    namespace = "com.rexhaj.ticketfinder"
     compileSdk = 35
 
     val file = rootProject.file("local.properties")

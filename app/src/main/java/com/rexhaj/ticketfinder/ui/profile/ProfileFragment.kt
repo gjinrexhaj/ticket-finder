@@ -1,4 +1,4 @@
-package com.rexhaj.ticketfindernew.ui.profile
+package com.rexhaj.ticketfinder.ui.profile
 
 import android.app.Activity
 import android.os.Bundle
@@ -13,9 +13,8 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.rexhaj.ticketfindernew.EventList
-import com.rexhaj.ticketfindernew.User
-import com.rexhaj.ticketfindernew.databinding.FragmentProfileBinding
+import com.rexhaj.ticketfinder.User
+import com.rexhaj.ticketfinder.databinding.FragmentProfileBinding
 
 private const val TAG = "ProfileFragment"
 

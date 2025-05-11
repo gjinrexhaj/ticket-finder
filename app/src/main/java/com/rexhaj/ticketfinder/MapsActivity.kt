@@ -1,4 +1,4 @@
-package com.rexhaj.ticketfindernew
+package com.rexhaj.ticketfinder
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +9,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.rexhaj.ticketfindernew.databinding.ActivityMapsBinding
+import com.rexhaj.ticketfinder.databinding.ActivityMapsBinding
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 

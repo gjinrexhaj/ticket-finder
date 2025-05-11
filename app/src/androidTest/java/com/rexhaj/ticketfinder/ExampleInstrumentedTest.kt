@@ -1,4 +1,4 @@
-package com.rexhaj.ticketfindernew
+package com.rexhaj.ticketfinder
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

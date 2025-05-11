@@ -1,4 +1,4 @@
-package com.rexhaj.ticketfindernew.ui.favorites
+package com.rexhaj.ticketfinder.ui.favorites
 
 import android.os.Build
 import android.os.Bundle
@@ -15,13 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.rexhaj.ticketfindernew.BuildConfig
-import com.rexhaj.ticketfindernew.EventData
-import com.rexhaj.ticketfindernew.EventList
-import com.rexhaj.ticketfindernew.EventService
-import com.rexhaj.ticketfindernew.IDService
-import com.rexhaj.ticketfindernew.databinding.FragmentFavoritesBinding
-import com.rexhaj.ticketfindernew.ui.search.user
+import com.rexhaj.ticketfinder.BuildConfig
+import com.rexhaj.ticketfinder.EventData
+import com.rexhaj.ticketfinder.EventList
+import com.rexhaj.ticketfinder.IDService
+import com.rexhaj.ticketfinder.databinding.FragmentFavoritesBinding
+import com.rexhaj.ticketfinder.ui.search.user
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
