@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TicketFinderNew"
+rootProject.name = "TicketFinder"
 include(":app")
  
